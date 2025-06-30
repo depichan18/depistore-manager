@@ -24,4 +24,12 @@ public class Barang {
     public int getHarga() { return harga; }
     public int getStok() { return stok; }
     public String getTanggal() { return tanggal; }
+
+    // Setters untuk update data
+    public void setId(int id) { this.id = id; }
+    public void setNama(String nama) { this.nama = nama; }
+    public void setKategori(String kategori) { this.kategori = kategori; }
+    public void setHarga(int harga) { this.harga = harga; }
+    public void setStok(int stok) { this.stok = stok; }
+    public void setTanggal(String tanggal) { this.tanggal = tanggal; }
 }

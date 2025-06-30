@@ -14,12 +14,12 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        AnchorPane root = FXMLLoader.load(getClass().getResource("/view/barang-view.fxml"));
+        AnchorPane root = FXMLLoader.load(getClass().getResource("/view/dashboard-view.fxml"));
         Scene scene = new Scene(root);
-        primaryStage.setTitle("Data Barang Toko Kelontong");
+        primaryStage.setTitle("Dashboard Toko Kelontong");
         primaryStage.getIcons().add(new Image(getClass().getResource("/img/icon.png").toString()));
         primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
         primaryStage.show();
     }
 

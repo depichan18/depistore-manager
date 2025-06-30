@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.depichan.controller.DashboardController"
+            prefWidth="900" prefHeight="600">
+    <children>
+        <VBox spacing="15" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
+            <HBox alignment="CENTER" styleClass="header">
+                <Label text="Dashboard Toko Kelontong" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+            </HBox>
+            
+            <!-- Card-style metrics -->
+            <HBox spacing="20">
+                <VBox styleClass="metric-card" prefWidth="200" prefHeight="120" style="-fx-background-color: #f0f7ff; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #d0d0d0;">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+                    <Label text="Total Penjualan Hari Ini" style="-fx-font-weight: bold;"/>
+                    <Label fx:id="labelSalesToday" text="Rp 0" style="-fx-font-size: 24px;"/>
+                    <Label fx:id="labelSalesTodayTrx" text="0 transaksi" style="-fx-font-size: 12px;"/>
+                </VBox>
+                
+                <VBox styleClass="metric-card" prefWidth="200" prefHeight="120" style="-fx-background-color: #fff0f0; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #d0d0d0;">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+                    <Label text="Barang Stok Menipis" style="-fx-font-weight: bold;"/>
+                    <Label fx:id="labelLowStock" text="0 barang" style="-fx-font-size: 24px;"/>
+                    <Hyperlink fx:id="linkLowStockDetail" text="Lihat detail" onAction="#showLowStockItems"/>
+                </VBox>
+                
+                <VBox styleClass="metric-card" prefWidth="200" prefHeight="120" style="-fx-background-color: #f0fff0; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #d0d0d0;">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+                    <Label text="Total Nilai Persediaan" style="-fx-font-weight: bold;"/>
+                    <Label fx:id="labelInventoryValue" text="Rp 0" style="-fx-font-size: 24px;"/>
+                    <Label fx:id="labelTotalItems" text="0 barang" style="-fx-font-size: 12px;"/>
+                </VBox>
+                
+                <VBox styleClass="metric-card" prefWidth="200" prefHeight="120" style="-fx-background-color: #fffff0; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #d0d0d0;">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+                    <Label text="Penjualan Minggu Ini" style="-fx-font-weight: bold;"/>
+                    <Label fx:id="labelSalesWeek" text="Rp 0" style="-fx-font-size: 24px;"/>
+                    <Label fx:id="labelSalesWeekTrx" text="0 transaksi" style="-fx-font-size: 12px;"/>
+                </VBox>
+            </HBox>
+            
+            <!-- Charts and tables section -->
+            <HBox spacing="15" VBox.vgrow="ALWAYS">
+                <!-- Sales Trend Chart -->
+                <VBox spacing="5" HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #d0d0d0;">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+                    <Label text="Tren Penjualan (7 Hari Terakhir)" style="-fx-font-weight: bold;"/>
+                    <BarChart fx:id="salesTrendChart" legendVisible="false" VBox.vgrow="ALWAYS">
+                        <xAxis>
+                            <CategoryAxis fx:id="salesTrendX" label="Tanggal"/>
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis fx:id="salesTrendY" label="Total Penjualan (Rp)"/>
+                        </yAxis>
+                    </BarChart>
+                </VBox>
+                
+                <!-- Top Selling Products Table -->
+                <VBox spacing="5" prefWidth="300" style="-fx-background-color: white; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #d0d0d0;">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+                    <Label text="Produk Terlaris Bulan Ini" style="-fx-font-weight: bold;"/>
+                    <TableView fx:id="topProductsTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colProductName" text="Nama Barang" prefWidth="160"/>
+                            <TableColumn fx:id="colProductQty" text="Terjual" prefWidth="60"/>
+                            <TableColumn fx:id="colProductTotal" text="Total" prefWidth="70"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </HBox>
+            
+            <!-- Action Buttons -->
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Kelola Barang" onAction="#goToProductManagement" prefWidth="150"/>
+                <Button text="Buat Laporan" onAction="#generateReport" prefWidth="150"/>
+                <Button text="Refresh Data" onAction="#refreshDashboard" prefWidth="150"/>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

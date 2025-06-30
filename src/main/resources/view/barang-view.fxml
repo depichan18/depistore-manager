@@ -23,7 +23,11 @@
                 </columns>
             </TableView>
             <HBox spacing="10">
+                <Button text="Dashboard" onAction="#onDashboard"/>
                 <Button text="Jual Barang" onAction="#onJualBarang"/>
+                <Button text="Tambah Stok" onAction="#onTambahStok"/>
+                <Button text="Tambah Barang" onAction="#onTambahBarang"/>
+                <Button text="Laporan" onAction="#onLaporan"/>
             </HBox>
         </VBox>
     </children>
