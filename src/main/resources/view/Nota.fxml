@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.depichan.controller.NotaController">
+    <children>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <Label fx:id="labelNota" style="-fx-font-size: 16px;" />
+            <Button text="Tutup" onAction="#onClose" />
+            <Button fx:id="btnSavePdf" text="Simpan sebagai PDF" onAction="#onSaveAsPdf" />
+        </VBox>
+    </children>
+</AnchorPane>

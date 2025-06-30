@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.depichan.controller.BarangController"
+            prefWidth="800" prefHeight="500">
+    <children>
+        <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
+            <HBox spacing="10">
+                <TextField fx:id="tfSearch" promptText="Cari nama barang..." />
+                <ComboBox fx:id="cbSortBy" prefWidth="150" />
+                <ComboBox fx:id="cbSortOrder" prefWidth="100" />
+                <Button text="Refresh" onAction="#onRefresh" />
+            </HBox>
+            <TableView fx:id="tableBarang">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="50" />
+                    <TableColumn fx:id="colNama" text="Nama Barang" prefWidth="200" />
+                    <TableColumn fx:id="colKategori" text="Kategori" prefWidth="150" />
+                    <TableColumn fx:id="colHarga" text="Harga" prefWidth="100" />
+                    <TableColumn fx:id="colStok" text="Stok" prefWidth="80" />
+                    <TableColumn fx:id="colTanggal" text="Tanggal Masuk" prefWidth="120" />
+                </columns>
+            </TableView>
+            <HBox spacing="10">
+                <Button text="Jual Barang" onAction="#onJualBarang"/>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>
