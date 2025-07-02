@@ -71,7 +71,7 @@
                 </VBox>
                 
                 <!-- Top Selling Products Table -->
-                <VBox spacing="5" prefWidth="300" style="-fx-background-color: white; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #d0d0d0;">
+                <VBox spacing="5" HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #d0d0d0;">
                     <padding>
                         <Insets top="10" right="10" bottom="10" left="10"/>
                     </padding>
@@ -89,7 +89,6 @@
             <!-- Action Buttons -->
             <HBox spacing="10" alignment="CENTER">
                 <Button text="Kelola Barang" onAction="#goToProductManagement" prefWidth="150"/>
-                <Button text="Buat Laporan" onAction="#generateReport" prefWidth="150"/>
                 <Button text="Refresh Data" onAction="#refreshDashboard" prefWidth="150"/>
             </HBox>
         </VBox>

@@ -1,16 +1,21 @@
 package com.depichan.controller;
 
-import com.lowagie.text.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import com.lowagie.text.Document;
+import com.lowagie.text.Font;
+import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfWriter;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import java.io.File;
-import java.io.FileOutputStream;
 
 public class NotaController {
 
@@ -47,10 +52,24 @@ public class NotaController {
 
     @FXML
     private void onSaveAsPdf() {
+        // Buat nama file dengan format nota-tanggal-kode
+        LocalDateTime now = LocalDateTime.now();
+        String formattedDate = now.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        String kode = String.valueOf(now.toInstant(java.time.ZoneOffset.UTC).toEpochMilli());
+        String defaultFileName = "nota-" + formattedDate + "-" + kode + ".pdf";
+        
+        // Gunakan direktori user untuk menyimpan file
+        String userHome = System.getProperty("user.home");
+        File downloadDir = new File(userHome + "/Downloads");
+        if (!downloadDir.exists()) {
+            downloadDir.mkdirs();
+        }
+        
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Simpan Nota sebagai PDF");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
-        fileChooser.setInitialFileName("nota_penjualan.pdf");
+        fileChooser.setInitialFileName(defaultFileName);
+        fileChooser.setInitialDirectory(downloadDir);
 
         File file = fileChooser.showSaveDialog(stage);
         if (file != null) {
@@ -80,6 +99,33 @@ public class NotaController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+    
+    /**
+     * Menyimpan nota ke lokasi default (Downloads folder) dengan nama yang sesuai format
+     */
+    public void saveNotaAsPDFToDefault() {
+        try {
+            // Buat nama file dengan format nota-tanggal-kode
+            LocalDateTime now = LocalDateTime.now();
+            String formattedDate = now.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            String kode = String.valueOf(now.toInstant(java.time.ZoneOffset.UTC).toEpochMilli());
+            String fileName = "nota-" + formattedDate + "-" + kode + ".pdf";
+            
+            // Gunakan direktori user untuk menyimpan file
+            String userHome = System.getProperty("user.home");
+            File downloadDir = new File(userHome + "/Downloads");
+            if (!downloadDir.exists()) {
+                downloadDir.mkdirs();
+            }
+            
+            File file = new File(downloadDir, fileName);
+            saveNotaAsPDFToFile(file);
+            showAlert("Berhasil", "Nota berhasil disimpan sebagai PDF di " + file.getAbsolutePath());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Gagal", "Gagal menyimpan PDF: " + e.getMessage());
         }
     }
 

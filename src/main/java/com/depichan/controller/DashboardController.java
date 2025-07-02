@@ -1,6 +1,19 @@
 package com.depichan.controller;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.depichan.db.DBConnection;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,26 +23,18 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.NumberFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DashboardController {
 
@@ -372,71 +377,7 @@ public class DashboardController {
         }
     }
     
-    @FXML
-    public void generateReport() {
-        // Membuat dialog untuk opsi laporan
-        Dialog<String> dialog = new Dialog<>();
-        dialog.setTitle("Laporan Penjualan");
-        dialog.setHeaderText("Pilih jenis laporan dan periode");
-
-        // Set up button types
-        ButtonType generateButtonType = new ButtonType("Generate & Export", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(generateButtonType, ButtonType.CANCEL);
-
-        // Set up radio buttons untuk jenis laporan
-        Label jenisLabel = new Label("Jenis Laporan:");
-        ToggleGroup jenisGroup = new ToggleGroup();
-        RadioButton rbHarian = new RadioButton("Harian");
-        rbHarian.setToggleGroup(jenisGroup);
-        rbHarian.setSelected(true);
-        RadioButton rbMingguan = new RadioButton("Mingguan");
-        rbMingguan.setToggleGroup(jenisGroup);
-        RadioButton rbBulanan = new RadioButton("Bulanan");
-        rbBulanan.setToggleGroup(jenisGroup);
-
-        // Set up DatePicker untuk tanggal
-        Label tanggalLabel = new Label("Pilih Tanggal:");
-        DatePicker datePicker = new DatePicker(LocalDate.now());
-
-        // Setup layout
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.add(jenisLabel, 0, 0);
-        grid.add(rbHarian, 1, 0);
-        grid.add(rbMingguan, 2, 0);
-        grid.add(rbBulanan, 3, 0);
-        grid.add(tanggalLabel, 0, 1);
-        grid.add(datePicker, 1, 1, 3, 1);
-
-        dialog.getDialogPane().setContent(grid);
-
-        // Convert result
-        dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == generateButtonType) {
-                RadioButton selectedRB = (RadioButton) jenisGroup.getSelectedToggle();
-                String jenis = selectedRB.getText();
-                LocalDate tanggal = datePicker.getValue();
-                
-                return jenis + "," + tanggal.format(DateTimeFormatter.ISO_LOCAL_DATE);
-            }
-            return null;
-        });
-
-        dialog.showAndWait().ifPresent(result -> {
-            try {
-                String[] parts = result.split(",");
-                String jenis = parts[0];
-                LocalDate tanggal = LocalDate.parse(parts[1]);
-                
-                // Menggunakan metode statis dari BarangController
-                BarangController.generateLaporanFromOtherController(jenis, tanggal);
-            } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, "Error parsing report parameters", e);
-                showAlert("Gagal membuat laporan: " + e.getMessage());
-            }
-        });
-    }
+    // Menghapus fungsi generateReport() karena sudah ada di BarangController
     
     private void showAlert(String pesan) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

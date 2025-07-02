@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.depichan.controller.BarangController"
-            prefWidth="800" prefHeight="500">
+            prefWidth="900" prefHeight="600">
     <children>
         <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
             <HBox spacing="10">
@@ -27,7 +27,7 @@
                 <Button text="Jual Barang" onAction="#onJualBarang"/>
                 <Button text="Tambah Stok" onAction="#onTambahStok"/>
                 <Button text="Tambah Barang" onAction="#onTambahBarang"/>
-                <Button text="Laporan" onAction="#onLaporan"/>
+                <Button text="Cetak Laporan" onAction="#onLaporan"/>
             </HBox>
         </VBox>
     </children>

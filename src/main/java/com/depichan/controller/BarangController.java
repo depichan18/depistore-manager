@@ -201,10 +201,9 @@ public class BarangController {
 
                 notaController.setNotaData(selected.getNama(), jumlah, selected.getHarga(), total, waktu);
                 stage.show();
-                new File("nota").mkdirs(); // pastikan folder ada
-                String fileName = "nota/nota-" + System.currentTimeMillis() + ".pdf";
-                File pdfFile = new File(fileName);
-                notaController.saveNotaAsPDFToFile(pdfFile);
+                
+                // Simpan nota ke direktori downloads dengan format yang sesuai
+                notaController.saveNotaAsPDFToDefault();
 
             } catch (NumberFormatException e) {
                 showAlert("Masukkan angka yang valid.");
@@ -991,17 +990,20 @@ public class BarangController {
         try {
             System.out.println("Memulai proses ekspor ke Excel. Jumlah data: " + data.size());
             
-            // Buat nama file berdasarkan periode
-            String fileName = "Laporan_Penjualan_" + periodeLabel.replace(" ", "_").replace("/", "-") + ".xlsx";
+            // Buat nama file berdasarkan periode dengan format yang diinginkan
+            LocalDate today = LocalDate.now();
+            String formattedDate = today.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            String fileName = "laporan-" + formattedDate + ".xlsx";
             
-            // Buat file otomatis di folder "laporan" tanpa meminta konfirmasi
-            File direktoriLaporan = new File("laporan");
-            if (!direktoriLaporan.exists()) {
-                direktoriLaporan.mkdirs();
-                System.out.println("Membuat direktori laporan");
+            // Gunakan direktori user untuk menyimpan file (bukan folder project)
+            String userHome = System.getProperty("user.home");
+            File downloadDir = new File(userHome + "/Downloads");
+            if (!downloadDir.exists()) {
+                downloadDir.mkdirs();
+                System.out.println("Membuat direktori Downloads");
             }
             
-            File file = new File(direktoriLaporan, fileName);
+            File file = new File(downloadDir, fileName);
             System.out.println("File laporan akan disimpan di: " + file.getAbsolutePath());
             
             // Gunakan try-with-resources untuk memastikan resource ditutup dengan benar
