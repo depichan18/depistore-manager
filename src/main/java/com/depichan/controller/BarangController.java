@@ -27,6 +27,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.depichan.db.DBConnection;
 import com.depichan.model.Barang;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -100,6 +101,17 @@ public class BarangController {
 
         cbSortBy.setValue("Nama");
         cbSortOrder.setValue("ASC");
+        
+        // Style ComboBox dengan warna biru solid tanpa gradient
+        String comboBoxStyle = "-fx-background-color:rgb(58, 139, 220); " +
+                              "-fx-text-fill: white; " +
+                              "-fx-font-weight: bold; " +
+                              "-fx-border-color: transparent; " +
+                              "-fx-background-radius: 4; " +
+                              "-fx-effect: none;";
+        
+        cbSortBy.setStyle(comboBoxStyle);
+        cbSortOrder.setStyle(comboBoxStyle);
 
         tfSearch.textProperty().addListener((obs, oldVal, newVal) -> loadData());
         cbSortBy.setOnAction(e -> loadData());
@@ -111,13 +123,44 @@ public class BarangController {
         // Setup zebra striping
         tableBarang.setRowFactory(createTableRowFactory());
         
-        // Apply zebra striping style to table
+        // Apply zebra striping style to table dengan scrollbar biru solid
         tableBarang.setStyle(
             "-fx-background-color: transparent; " +
             "-fx-table-cell-border-color: transparent; " +
             "-fx-selection-bar: #bbdefb; " +                   // biru muda sedikit lebih gelap saat dipilih
             "-fx-selection-bar-non-focused: #e3f2fd;"          // biru muda biasa saat tidak fokus
         );
+        
+        // Style scrollbar dengan lookup yang lebih efektif
+        Platform.runLater(() -> {
+            // Tunggu hingga tabel selesai di-render
+            tableBarang.applyCss();
+            tableBarang.layout();
+            
+            // Gunakan lookup untuk mencari scrollbar dan apply style
+            styleScrollbars(tableBarang);
+        });
+        
+        // Listener untuk re-apply style ketika data berubah
+        tableBarang.itemsProperty().addListener((obs, oldItems, newItems) -> {
+            Platform.runLater(() -> {
+                styleScrollbars(tableBarang);
+            });
+        });
+        
+        // Listener untuk re-apply style ketika ukuran tabel berubah
+        tableBarang.widthProperty().addListener((obs, oldWidth, newWidth) -> {
+            Platform.runLater(() -> {
+                styleScrollbars(tableBarang);
+            });
+        });
+        
+        // Listener untuk re-apply style ketika tinggi tabel berubah
+        tableBarang.heightProperty().addListener((obs, oldHeight, newHeight) -> {
+            Platform.runLater(() -> {
+                styleScrollbars(tableBarang);
+            });
+        });
         
         // Style header columns dengan warna biru gelap
         colId.setStyle("-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-weight: bold; -fx-alignment: CENTER;");
@@ -168,6 +211,11 @@ public class BarangController {
         }
 
         tableBarang.setItems(dataBarang);
+        
+        // Re-apply scrollbar styling setelah data dimuat
+        Platform.runLater(() -> {
+            styleScrollbars(tableBarang);
+        });
     }
 
     @FXML
@@ -176,6 +224,11 @@ public class BarangController {
         cbSortBy.setValue("Nama");
         cbSortOrder.setValue("ASC");
         loadData();
+        
+        // Re-apply scrollbar styling setelah refresh
+        Platform.runLater(() -> {
+            styleScrollbars(tableBarang);
+        });
     }
 
     @FXML
@@ -1351,6 +1404,75 @@ public class BarangController {
                     setStyle("-fx-alignment: CENTER;");
                 }
             }
+        });
+    }
+    
+    /**
+     * Method helper untuk styling scrollbar dengan warna biru solid
+     */
+    private void styleScrollbars(TableView<Barang> tableView) {
+        try {
+            // Aplikasikan style langsung dan juga dengan delay untuk memastikan
+            applyScrollbarStyle(tableView);
+            
+            // Gunakan Platform.runLater untuk memastikan style diterapkan setelah rendering selesai
+            Platform.runLater(() -> {
+                applyScrollbarStyle(tableView);
+            });
+            
+        } catch (Exception e) {
+            LOGGER.log(Level.WARNING, "Error styling scrollbars", e);
+        }
+    }
+    
+    private void applyScrollbarStyle(TableView<Barang> tableView) {
+        // Lookup semua scrollbar dalam tabel
+        tableView.lookupAll(".scroll-bar").forEach(scrollBar -> {
+            // Style scrollbar utama
+            scrollBar.setStyle(
+                "-fx-background-color: #1976d2; " +
+                "-fx-border-color: transparent; " +
+                "-fx-background-radius: 0; " +
+                "-fx-effect: none;"
+            );
+            
+            // Style track (jalur scrollbar)
+            scrollBar.lookupAll(".track").forEach(track -> {
+                track.setStyle(
+                    "-fx-background-color: #1976d2; " +
+                    "-fx-border-color: transparent; " +
+                    "-fx-background-radius: 0; " +
+                    "-fx-effect: none;"
+                );
+            });
+            
+            // Style thumb (handle scrollbar)
+            scrollBar.lookupAll(".thumb").forEach(thumb -> {
+                thumb.setStyle(
+                    "-fx-background-color: #0d47a1; " +
+                    "-fx-border-color: transparent; " +
+                    "-fx-background-radius: 0; " +
+                    "-fx-effect: none;"
+                );
+            });
+            
+            // Style increment/decrement buttons
+            scrollBar.lookupAll(".increment-button, .decrement-button").forEach(button -> {
+                button.setStyle(
+                    "-fx-background-color: #1976d2; " +
+                    "-fx-border-color: transparent; " +
+                    "-fx-background-radius: 0; " +
+                    "-fx-effect: none;"
+                );
+            });
+            
+            // Style increment/decrement arrows
+            scrollBar.lookupAll(".increment-arrow, .decrement-arrow").forEach(arrow -> {
+                arrow.setStyle(
+                    "-fx-background-color: white; " +
+                    "-fx-effect: none;"
+                );
+            });
         });
     }
 }
