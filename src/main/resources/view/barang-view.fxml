@@ -42,11 +42,15 @@
                                       minHeight="35" HBox.hgrow="ALWAYS"/>
                                       
                             <ComboBox fx:id="cbSortBy" promptText="Urutkan berdasarkan" 
-                                     style="-fx-background-radius: 20; -fx-border-radius: 20;"
+                                     style="-fx-background-color: #2196F3; -fx-text-fill: white; 
+                                            -fx-font-weight: bold; -fx-font-size: 12px;
+                                            -fx-background-radius: 20; -fx-border-radius: 20;"
                                      minHeight="35" minWidth="160"/>
                                      
                             <ComboBox fx:id="cbSortOrder" promptText="Urutan" 
-                                     style="-fx-background-radius: 20; -fx-border-radius: 20;"
+                                     style="-fx-background-color: #2196F3; -fx-text-fill: white; 
+                                            -fx-font-weight: bold; -fx-font-size: 12px;
+                                            -fx-background-radius: 20; -fx-border-radius: 20;"
                                      minHeight="35" minWidth="120"/>
                                      
                             <Button text="🔄 Refresh" onAction="#onRefresh" 

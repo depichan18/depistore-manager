@@ -102,16 +102,28 @@ public class BarangController {
         cbSortBy.setValue("Nama");
         cbSortOrder.setValue("ASC");
         
-        // Style ComboBox dengan warna biru solid tanpa gradient
-        String comboBoxStyle = "-fx-background-color:rgb(58, 139, 220); " +
+        // Style ComboBox dengan warna biru yang sama seperti refresh button
+        String comboBoxStyle = "-fx-background-color: #2196F3; " +
                               "-fx-text-fill: white; " +
                               "-fx-font-weight: bold; " +
-                              "-fx-border-color: transparent; " +
-                              "-fx-background-radius: 4; " +
-                              "-fx-effect: none;";
+                              "-fx-font-size: 12px; " +
+                              "-fx-background-radius: 20; " +
+                              "-fx-border-radius: 20; " +
+                              "-fx-border-color: transparent;";
         
         cbSortBy.setStyle(comboBoxStyle);
         cbSortOrder.setStyle(comboBoxStyle);
+        
+        // Apply styling setelah ComboBox di-render
+        Platform.runLater(() -> {
+            // Style untuk dropdown list
+            cbSortBy.applyCss();
+            cbSortOrder.applyCss();
+            
+            // Additional styling untuk dropdown
+            cbSortBy.lookup(".list-view").setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
+            cbSortOrder.lookup(".list-view").setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
+        });
 
         tfSearch.textProperty().addListener((obs, oldVal, newVal) -> loadData());
         cbSortBy.setOnAction(e -> loadData());
