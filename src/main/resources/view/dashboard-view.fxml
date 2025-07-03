@@ -179,12 +179,12 @@
                     
                     <!-- Action Buttons with Responsive Layout -->
                     <HBox spacing="15" alignment="CENTER" minHeight="60">
-                        <Button text="🛍️ Kelola Barang" onAction="#goToProductManagement" 
+                        <Button text="📦Kelola Barang" onAction="#goToProductManagement" 
                                minWidth="150" prefHeight="40"
                                style="-fx-background-color: #4CAF50; 
                                       -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
                                       -fx-background-radius: 20; -fx-border-radius: 20;"/>
-                        <Button text="🔄 Refresh Data" onAction="#refreshDashboard" 
+                        <Button text="🔄Refresh Data" onAction="#refreshDashboard" 
                                minWidth="150" prefHeight="40"
                                style="-fx-background-color: #2196F3; 
                                       -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;

@@ -39,22 +39,16 @@
                             <TextField fx:id="tfSearch" promptText="🔍 Cari nama barang..." 
                                       style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #ddd; 
                                              -fx-border-width: 1; -fx-padding: 8 15 8 15; -fx-font-size: 14px;"
-                                      minHeight="35" HBox.hgrow="ALWAYS"/>
+                                      minHeight="35" prefWidth="300" HBox.hgrow="ALWAYS"/>
                                       
                             <ComboBox fx:id="cbSortBy" promptText="Urutkan berdasarkan" 
-                                     style="-fx-background-color: #2196F3; -fx-text-fill: white; 
-                                            -fx-font-weight: bold; -fx-font-size: 12px;
-                                            -fx-background-radius: 20; -fx-border-radius: 20;"
-                                     minHeight="35" minWidth="160"/>
+                                     minHeight="35" prefWidth="90" maxWidth="90"/>
                                      
                             <ComboBox fx:id="cbSortOrder" promptText="Urutan" 
-                                     style="-fx-background-color: #2196F3; -fx-text-fill: white; 
-                                            -fx-font-weight: bold; -fx-font-size: 12px;
-                                            -fx-background-radius: 20; -fx-border-radius: 20;"
-                                     minHeight="35" minWidth="120"/>
+                                     minHeight="35" prefWidth="70" maxWidth="70"/>
                                      
-                            <Button text="🔄 Refresh" onAction="#onRefresh" 
-                                   style="-fx-background-color: #2196F3; 
+                            <Button text="🔄Refresh" onAction="#onRefresh" 
+                                   style="-fx-background-color: #4CAF50; 
                                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
                                           -fx-background-radius: 20; -fx-border-radius: 20;"
                                    minHeight="35" minWidth="80"/>
@@ -109,37 +103,37 @@
                             <Insets top="15" right="15" bottom="15" left="15"/>
                         </padding>
                         
-                        <Label text="⚡ Aksi Cepat" 
+                        <Label text="⚡Aksi Cepat" 
                                style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #2c3e50;"/>
                         
                         <!-- Action Buttons with Compact Layout -->
                         <HBox spacing="10" alignment="CENTER">
-                            <Button text="🏠 Dashboard" onAction="#onDashboard"
-                                   style="-fx-background-color: #9C27B0; 
+                            <Button text="🏠Dashboard" onAction="#onDashboard"
+                                   style="-fx-background-color: #1976D2; 
                                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
                                           -fx-background-radius: 15; -fx-border-radius: 15;"
                                    minHeight="40" minWidth="130"/>
                                    
-                            <Button text="💰 Jual Barang" onAction="#onJualBarang"
-                                   style="-fx-background-color: #FF9800; 
+                            <Button text="💰Jual Barang" onAction="#onJualBarang"
+                                   style="-fx-background-color: #388E3C; 
                                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
                                           -fx-background-radius: 15; -fx-border-radius: 15;"
                                    minHeight="40" minWidth="130"/>
                                    
-                            <Button text="📈 Tambah Stok" onAction="#onTambahStok"
+                            <Button text="📈Tambah Stok" onAction="#onTambahStok"
                                    style="-fx-background-color: #4CAF50; 
                                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
                                           -fx-background-radius: 15; -fx-border-radius: 15;"
                                    minHeight="40" minWidth="130"/>
                                    
-                            <Button text="➕ Tambah Barang" onAction="#onTambahBarang"
+                            <Button text="➕Tambah Barang" onAction="#onTambahBarang"
                                    style="-fx-background-color: #2196F3; 
                                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
                                           -fx-background-radius: 15; -fx-border-radius: 15;"
                                    minHeight="40" minWidth="130"/>
                                    
-                            <Button text="📊 Cetak Laporan" onAction="#onLaporan"
-                                   style="-fx-background-color: #E91E63; 
+                            <Button text="📊Cetak Laporan" onAction="#onLaporan"
+                                   style="-fx-background-color: #0D47A1; 
                                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
                                           -fx-background-radius: 15; -fx-border-radius: 15;"
                                    minHeight="40" minWidth="130"/>

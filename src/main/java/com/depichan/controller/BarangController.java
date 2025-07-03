@@ -116,9 +116,13 @@ public class BarangController {
         
         // Apply styling setelah ComboBox di-render
         Platform.runLater(() -> {
-            // Style untuk dropdown list
+            // Style untuk dropdown list dan komponen internal
             cbSortBy.applyCss();
             cbSortOrder.applyCss();
+            
+            // Style untuk button dan label internal ComboBox
+            styleComboBoxComponents(cbSortBy);
+            styleComboBoxComponents(cbSortOrder);
             
             // Additional styling untuk dropdown
             cbSortBy.lookup(".list-view").setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
@@ -1486,5 +1490,37 @@ public class BarangController {
                 );
             });
         });
+    }
+    
+    /**
+     * Method helper untuk styling komponen internal ComboBox agar teks putih terapply
+     */
+    private void styleComboBoxComponents(ComboBox<String> comboBox) {
+        try {
+            // Style untuk button internal ComboBox
+            comboBox.lookupAll(".combo-box-base").forEach(node -> {
+                node.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; " +
+                             "-fx-font-weight: bold; -fx-font-size: 12px; " +
+                             "-fx-background-radius: 20; -fx-border-radius: 20;");
+            });
+            
+            // Style untuk label yang menampilkan value yang dipilih
+            comboBox.lookupAll(".label").forEach(node -> {
+                node.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;");
+            });
+            
+            // Style untuk arrow button
+            comboBox.lookupAll(".arrow-button").forEach(node -> {
+                node.setStyle("-fx-background-color: #2196F3; -fx-background-radius: 20;");
+            });
+            
+            // Style untuk arrow
+            comboBox.lookupAll(".arrow").forEach(node -> {
+                node.setStyle("-fx-background-color: white;");
+            });
+            
+        } catch (Exception e) {
+            LOGGER.log(Level.WARNING, "Error styling ComboBox components", e);
+        }
     }
 }
