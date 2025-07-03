@@ -43,6 +43,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -53,6 +54,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class BarangController {
 
@@ -105,6 +107,28 @@ public class BarangController {
 
         // Setup context menu untuk tabel
         setupTableContextMenu();
+
+        // Setup zebra striping
+        tableBarang.setRowFactory(createTableRowFactory());
+        
+        // Apply zebra striping style to table
+        tableBarang.setStyle(
+            "-fx-background-color: transparent; " +
+            "-fx-table-cell-border-color: transparent; " +
+            "-fx-selection-bar: #bbdefb; " +                   // biru muda sedikit lebih gelap saat dipilih
+            "-fx-selection-bar-non-focused: #e3f2fd;"          // biru muda biasa saat tidak fokus
+        );
+        
+        // Style header columns dengan warna biru gelap
+        colId.setStyle("-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-weight: bold; -fx-alignment: CENTER;");
+        colNama.setStyle("-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-weight: bold; -fx-alignment: CENTER;");
+        colKategori.setStyle("-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-weight: bold; -fx-alignment: CENTER;");
+        colHarga.setStyle("-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-weight: bold; -fx-alignment: CENTER;");
+        colStok.setStyle("-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-weight: bold; -fx-alignment: CENTER;");
+        colTanggal.setStyle("-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-weight: bold; -fx-alignment: CENTER;");
+        
+        // Setup cell factories untuk mencegah konflik dengan zebra striping
+        setupCellFactories();
 
         loadData();
     }
@@ -1199,5 +1223,134 @@ public class BarangController {
             alert.setContentText("Gagal membuat laporan: " + e.getMessage());
             alert.showAndWait();
         }
+    }
+
+    // Method untuk membuat row factory dengan efek zebra hijau
+    public Callback<TableView<Barang>, TableRow<Barang>> createTableRowFactory() {
+        return tableView -> {
+            TableRow<Barang> row = new TableRow<>();
+
+            row.itemProperty().addListener((obs, oldItem, newItem) -> {
+                if (newItem != null) {
+                    int index = row.getIndex();
+                    if (index % 2 == 0) {
+                        // Baris genap: putih
+                        row.setStyle("-fx-background-color: #ffffff; -fx-border-color: transparent;");
+                    } else {
+                        // Baris ganjil: biru muda
+                        row.setStyle("-fx-background-color: #e3f2fd; -fx-border-color: transparent;");
+                    }
+                } else {
+                    row.setStyle("");
+                }
+            });
+            
+            // Hover effect
+            row.hoverProperty().addListener((obs, wasHovered, isHovered) -> {
+                if (isHovered && row.getItem() != null) {
+                    row.setStyle("-fx-background-color: #bbdefb; -fx-border-color: transparent;"); // biru hover
+                } else if (row.getItem() != null) {
+                    int index = row.getIndex();
+                    if (index % 2 == 0) {
+                        row.setStyle("-fx-background-color: #ffffff; -fx-border-color: transparent;");
+                    } else {
+                        row.setStyle("-fx-background-color: #e3f2fd; -fx-border-color: transparent;");
+                    }
+                }
+            });
+            return row;
+        };
+    }
+
+    private void setupCellFactories() {
+        // Setup cell factory untuk kolom ID
+        colId.setCellFactory(column -> new javafx.scene.control.TableCell<Barang, Integer>() {
+            @Override
+            protected void updateItem(Integer id, boolean empty) {
+                super.updateItem(id, empty);
+                if (empty || id == null) {
+                    setText(null);
+                    setStyle("-fx-alignment: CENTER;");
+                } else {
+                    setText(String.valueOf(id));
+                    setStyle("-fx-alignment: CENTER;");
+                }
+            }
+        });
+        
+        // Setup cell factory untuk kolom Nama
+        colNama.setCellFactory(column -> new javafx.scene.control.TableCell<Barang, String>() {
+            @Override
+            protected void updateItem(String nama, boolean empty) {
+                super.updateItem(nama, empty);
+                if (empty || nama == null) {
+                    setText(null);
+                    setStyle("-fx-alignment: CENTER-LEFT; -fx-padding: 0 8 0 8;");
+                } else {
+                    setText(nama);
+                    setStyle("-fx-alignment: CENTER-LEFT; -fx-padding: 0 8 0 8;");
+                }
+            }
+        });
+        
+        // Setup cell factory untuk kolom Kategori
+        colKategori.setCellFactory(column -> new javafx.scene.control.TableCell<Barang, String>() {
+            @Override
+            protected void updateItem(String kategori, boolean empty) {
+                super.updateItem(kategori, empty);
+                if (empty || kategori == null) {
+                    setText(null);
+                    setStyle("-fx-alignment: CENTER;");
+                } else {
+                    setText(kategori);
+                    setStyle("-fx-alignment: CENTER;");
+                }
+            }
+        });
+        
+        // Setup cell factory untuk kolom Harga
+        colHarga.setCellFactory(column -> new javafx.scene.control.TableCell<Barang, Integer>() {
+            @Override
+            protected void updateItem(Integer harga, boolean empty) {
+                super.updateItem(harga, empty);
+                if (empty || harga == null) {
+                    setText(null);
+                    setStyle("-fx-alignment: CENTER;");
+                } else {
+                    setText("Rp " + String.format("%,d", harga));
+                    setStyle("-fx-alignment: CENTER;");
+                }
+            }
+        });
+        
+        // Setup cell factory untuk kolom Stok
+        colStok.setCellFactory(column -> new javafx.scene.control.TableCell<Barang, Integer>() {
+            @Override
+            protected void updateItem(Integer stok, boolean empty) {
+                super.updateItem(stok, empty);
+                if (empty || stok == null) {
+                    setText(null);
+                    setStyle("-fx-alignment: CENTER;");
+                } else {
+                    setText(String.valueOf(stok));
+                    setStyle("-fx-alignment: CENTER;");
+                }
+            }
+        });
+        
+        // Setup cell factory untuk kolom Tanggal
+        colTanggal.setCellFactory(column -> new javafx.scene.control.TableCell<Barang, String>() {
+            @Override
+            protected void updateItem(String tanggal, boolean empty) {
+                super.updateItem(tanggal, empty);
+                if (empty || tanggal == null) {
+                    setText(null);
+                    setStyle("-fx-alignment: CENTER;");
+                } else {
+                    setText(tanggal);
+                    setStyle("-fx-alignment: CENTER;");
+                }
+            }
+        });
     }
 }

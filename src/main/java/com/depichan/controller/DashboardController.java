@@ -29,6 +29,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -36,6 +37,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class DashboardController {
 
@@ -83,8 +85,10 @@ public class DashboardController {
                 super.updateItem(total, empty);
                 if (empty || total == null) {
                     setText(null);
+                    setStyle("-fx-alignment: CENTER;");
                 } else {
                     setText(currencyFormat.format(total));
+                    setStyle("-fx-alignment: CENTER;");
                 }
             }
         });
@@ -96,6 +100,7 @@ public class DashboardController {
                 super.updateItem(quantity, empty);
                 if (empty || quantity == null) {
                     setText(null);
+                    setStyle("-fx-alignment: CENTER;");
                 } else {
                     setText(String.valueOf(quantity));
                     setStyle("-fx-alignment: CENTER;");
@@ -110,6 +115,7 @@ public class DashboardController {
                 super.updateItem(name, empty);
                 if (empty || name == null) {
                     setText(null);
+                    setStyle("-fx-alignment: CENTER-LEFT; -fx-padding: 0 8 0 8;");
                 } else {
                     setText(name);
                     setStyle("-fx-alignment: CENTER-LEFT; -fx-padding: 0 8 0 8;");
@@ -117,8 +123,61 @@ public class DashboardController {
             }
         });
         
+        // Setup zebra striping untuk tabel
+        topProductsTable.setRowFactory(createTableRowFactory());
+        
+        // Apply zebra striping style
+        topProductsTable.setStyle(
+            "-fx-background-color: transparent; " +
+            "-fx-table-cell-border-color: transparent; " +
+            "-fx-selection-bar: #bbdefb; " +                   // biru muda sedikit lebih gelap saat dipilih
+            "-fx-selection-bar-non-focused: #e3f2fd;"          // biru muda biasa saat tidak fokus
+        );
+        
+        // Style header columns dengan warna biru gelap
+        colProductName.setStyle("-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-weight: bold; -fx-alignment: CENTER;");
+        colProductQty.setStyle("-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-weight: bold; -fx-alignment: CENTER;");
+        colProductTotal.setStyle("-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-weight: bold; -fx-alignment: CENTER;");
+        
         // Load data
         refreshDashboard();
+    }
+    
+    // Method untuk membuat row factory dengan efek zebra putih-biru muda
+    public Callback<TableView<TopProduct>, TableRow<TopProduct>> createTableRowFactory() {
+        return tableView -> {
+            TableRow<TopProduct> row = new TableRow<>();
+            row.itemProperty().addListener((obs, oldItem, newItem) -> {
+                if (newItem != null) {
+                    int index = row.getIndex();
+                    if (index % 2 == 0) {
+                        // Baris genap - putih
+                        row.setStyle("-fx-background-color: #ffffff; -fx-border-color: transparent;");
+                    } else {
+                        // Baris ganjil - biru muda
+                        row.setStyle("-fx-background-color: #e3f2fd; -fx-border-color: transparent;");
+                    }
+                } else {
+                    row.setStyle("");
+                }
+            });
+            
+            // Hover effect - biru sedikit lebih pekat
+            row.hoverProperty().addListener((obs, wasHovered, isHovered) -> {
+                if (isHovered && row.getItem() != null) {
+                    row.setStyle("-fx-background-color: #bbdefb; -fx-border-color: transparent;");
+                } else if (row.getItem() != null) {
+                    int index = row.getIndex();
+                    if (index % 2 == 0) {
+                        row.setStyle("-fx-background-color: #ffffff; -fx-border-color: transparent;");
+                    } else {
+                        row.setStyle("-fx-background-color: #e3f2fd; -fx-border-color: transparent;");
+                    }
+                }
+            });
+            
+            return row;
+        };
     }
     
     @FXML
@@ -332,22 +391,127 @@ public class DashboardController {
             // Create a responsive table view
             TableView<LowStockItem> tableView = new TableView<>();
             tableView.setItems(items);
+
+            // Apply zebra striping style
+            tableView.setStyle(
+                "-fx-background-color: transparent; " +
+                "-fx-table-cell-border-color: transparent; " +
+                "-fx-selection-bar: #bbdefb; " +                   // biru muda sedikit lebih gelap saat dipilih
+                "-fx-selection-bar-non-focused: #e3f2fd;"          // biru muda biasa saat tidak fokus
+            );
+
+            // Setup row factory untuk efek zebra
+            tableView.setRowFactory(tv -> {
+                TableRow<LowStockItem> row = new TableRow<>();
+
+                row.itemProperty().addListener((obs, oldItem, newItem) -> {
+                    if (newItem != null) {
+                        int index = row.getIndex();
+                        if (index % 2 == 0) {
+                            // Baris genap - putih
+                            row.setStyle("-fx-background-color: #ffffff; -fx-border-color: transparent;");
+                        } else {
+                            // Baris ganjil - biru muda
+                            row.setStyle("-fx-background-color: #e3f2fd; -fx-border-color: transparent;");
+                        }
+                    } else {
+                        row.setStyle("");
+                    }
+                });
+
+                // Hover effect - biru sedikit lebih pekat
+                row.hoverProperty().addListener((obs, wasHovered, isHovered) -> {
+                    if (isHovered && row.getItem() != null) {
+                        row.setStyle("-fx-background-color: #bbdefb; -fx-border-color: transparent;");
+                    } else if (row.getItem() != null) {
+                        int index = row.getIndex();
+                        if (index % 2 == 0) {
+                            row.setStyle("-fx-background-color: #ffffff; -fx-border-color: transparent;");
+                        } else {
+                            row.setStyle("-fx-background-color: #e3f2fd; -fx-border-color: transparent;");
+                        }
+                    }
+                });
+
+                return row;
+            });
+
             
             TableColumn<LowStockItem, Integer> colId = new TableColumn<>("ID");
             colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-            colId.setStyle("-fx-alignment: CENTER;");
+            colId.setStyle("-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-weight: bold; -fx-alignment: CENTER;");
+            
+            // Format ID column cells
+            colId.setCellFactory(column -> new TableCell<LowStockItem, Integer>() {
+                @Override
+                protected void updateItem(Integer id, boolean empty) {
+                    super.updateItem(id, empty);
+                    if (empty || id == null) {
+                        setText(null);
+                        setStyle("-fx-alignment: CENTER;");
+                    } else {
+                        setText(String.valueOf(id));
+                        setStyle("-fx-alignment: CENTER;");
+                    }
+                }
+            });
             
             TableColumn<LowStockItem, String> colName = new TableColumn<>("Nama Barang");
             colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-            colName.setStyle("-fx-alignment: CENTER-LEFT;");
+            colName.setStyle("-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-weight: bold; -fx-alignment: CENTER;");
+            
+            // Format name column cells
+            colName.setCellFactory(column -> new TableCell<LowStockItem, String>() {
+                @Override
+                protected void updateItem(String name, boolean empty) {
+                    super.updateItem(name, empty);
+                    if (empty || name == null) {
+                        setText(null);
+                        setStyle("-fx-alignment: CENTER-LEFT; -fx-padding: 0 8 0 8;");
+                    } else {
+                        setText(name);
+                        setStyle("-fx-alignment: CENTER-LEFT; -fx-padding: 0 8 0 8;");
+                    }
+                }
+            });
             
             TableColumn<LowStockItem, String> colCategory = new TableColumn<>("Kategori");
             colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
-            colCategory.setStyle("-fx-alignment: CENTER;");
+            colCategory.setStyle("-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-weight: bold; -fx-alignment: CENTER;");
+            
+            // Format category column cells
+            colCategory.setCellFactory(column -> new TableCell<LowStockItem, String>() {
+                @Override
+                protected void updateItem(String category, boolean empty) {
+                    super.updateItem(category, empty);
+                    if (empty || category == null) {
+                        setText(null);
+                        setStyle("-fx-alignment: CENTER;");
+                    } else {
+                        setText(category);
+                        setStyle("-fx-alignment: CENTER;");
+                    }
+                }
+            });
             
             TableColumn<LowStockItem, Integer> colStock = new TableColumn<>("Stok");
             colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
-            colStock.setStyle("-fx-alignment: CENTER;");
+            colStock.setStyle("-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-weight: bold; -fx-alignment: CENTER;");
+            
+            // Format stock column cells
+            colStock.setCellFactory(column -> new TableCell<LowStockItem, Integer>() {
+                @Override
+                protected void updateItem(Integer stock, boolean empty) {
+                    super.updateItem(stock, empty);
+                    if (empty || stock == null) {
+                        setText(null);
+                        setStyle("-fx-alignment: CENTER;");
+                    } else {
+                        setText(String.valueOf(stock));
+                        setStyle("-fx-alignment: CENTER;");
+                    }
+                }
+            });
             
             // Add columns individually to avoid warning
             tableView.getColumns().add(colId);
@@ -383,12 +547,12 @@ public class DashboardController {
             Label headerIcon = new Label("⚠️");
             headerIcon.setStyle("-fx-font-size: 24px;");
             Label headerText = new Label("Daftar barang dengan stok kurang dari 10:");
-            headerText.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #d32f2f;");
+            headerText.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill:rgb(47, 194, 211);");
             header.getChildren().addAll(headerIcon, headerText);
             
             // Close button
             Button closeButton = new Button("Tutup");
-            closeButton.setStyle("-fx-background-color: linear-gradient(to bottom, #f44336, #d32f2f); " +
+            closeButton.setStyle("-fx-background-color: linear-gradient(to bottom,rgb(54, 181, 244),rgb(47, 167, 211)); " +
                                "-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; " +
                                "-fx-background-radius: 20; -fx-border-radius: 20; " +
                                "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);");
