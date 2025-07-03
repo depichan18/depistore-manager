@@ -32,6 +32,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -58,7 +59,7 @@ public class DashboardController {
     @FXML private TableColumn<TopProduct, Integer> colProductQty;
     @FXML private TableColumn<TopProduct, Double> colProductTotal;
     
-    private NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+    private NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.of("id", "ID"));
     
     @FXML
     public void initialize() {
@@ -66,6 +67,14 @@ public class DashboardController {
         colProductName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colProductQty.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         colProductTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+        
+        // Make table responsive with dynamic column sizing
+        topProductsTable.widthProperty().addListener((obs, oldWidth, newWidth) -> {
+            double tableWidth = newWidth.doubleValue() - 20; // Account for padding and scrollbar
+            colProductName.setPrefWidth(tableWidth * 0.5); // 50% of table width
+            colProductQty.setPrefWidth(tableWidth * 0.25);   // 25% of table width
+            colProductTotal.setPrefWidth(tableWidth * 0.25); // 25% of table width
+        });
         
         // Format the currency column
         colProductTotal.setCellFactory(column -> new TableCell<TopProduct, Double>() {
@@ -76,6 +85,34 @@ public class DashboardController {
                     setText(null);
                 } else {
                     setText(currencyFormat.format(total));
+                }
+            }
+        });
+        
+        // Format quantity column for better alignment
+        colProductQty.setCellFactory(column -> new TableCell<TopProduct, Integer>() {
+            @Override
+            protected void updateItem(Integer quantity, boolean empty) {
+                super.updateItem(quantity, empty);
+                if (empty || quantity == null) {
+                    setText(null);
+                } else {
+                    setText(String.valueOf(quantity));
+                    setStyle("-fx-alignment: CENTER;");
+                }
+            }
+        });
+        
+        // Format product name column
+        colProductName.setCellFactory(column -> new TableCell<TopProduct, String>() {
+            @Override
+            protected void updateItem(String name, boolean empty) {
+                super.updateItem(name, empty);
+                if (empty || name == null) {
+                    setText(null);
+                } else {
+                    setText(name);
+                    setStyle("-fx-alignment: CENTER-LEFT; -fx-padding: 0 8 0 8;");
                 }
             }
         });
@@ -292,44 +329,86 @@ public class DashboardController {
                 return;
             }
             
-            // Create a table view
+            // Create a responsive table view
             TableView<LowStockItem> tableView = new TableView<>();
             tableView.setItems(items);
             
             TableColumn<LowStockItem, Integer> colId = new TableColumn<>("ID");
             colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+            colId.setStyle("-fx-alignment: CENTER;");
             
             TableColumn<LowStockItem, String> colName = new TableColumn<>("Nama Barang");
             colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-            colName.setPrefWidth(200);
+            colName.setStyle("-fx-alignment: CENTER-LEFT;");
             
             TableColumn<LowStockItem, String> colCategory = new TableColumn<>("Kategori");
             colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
-            colCategory.setPrefWidth(150);
+            colCategory.setStyle("-fx-alignment: CENTER;");
             
             TableColumn<LowStockItem, Integer> colStock = new TableColumn<>("Stok");
             colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
+            colStock.setStyle("-fx-alignment: CENTER;");
             
-            tableView.getColumns().addAll(colId, colName, colCategory, colStock);
+            // Add columns individually to avoid warning
+            tableView.getColumns().add(colId);
+            tableView.getColumns().add(colName);
+            tableView.getColumns().add(colCategory);
+            tableView.getColumns().add(colStock);
             
-            // Create dialog
+            // Make the table responsive
+            tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
+            
+            // Dynamic column sizing
+            tableView.widthProperty().addListener((obs, oldWidth, newWidth) -> {
+                double tableWidth = newWidth.doubleValue() - 20;
+                colId.setPrefWidth(tableWidth * 0.1);        // 10%
+                colName.setPrefWidth(tableWidth * 0.5);      // 50%
+                colCategory.setPrefWidth(tableWidth * 0.25); // 25%
+                colStock.setPrefWidth(tableWidth * 0.15);    // 15%
+            });
+            
+            // Create responsive dialog
             Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.setTitle("Daftar Barang Stok Menipis");
+            dialog.setMinWidth(600);
+            dialog.setMinHeight(400);
             
-            VBox vbox = new VBox(10);
-            vbox.getChildren().addAll(
-                new Label("Daftar barang dengan stok kurang dari 10:"),
-                tableView,
-                new Button("Tutup")
-            );
+            VBox vbox = new VBox(15);
+            vbox.setStyle("-fx-background-color: #f8f9fa; -fx-padding: 20;");
             
-            Button closeButton = (Button) vbox.getChildren().get(2);
+            // Header
+            HBox header = new HBox(10);
+            header.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+            Label headerIcon = new Label("⚠️");
+            headerIcon.setStyle("-fx-font-size: 24px;");
+            Label headerText = new Label("Daftar barang dengan stok kurang dari 10:");
+            headerText.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #d32f2f;");
+            header.getChildren().addAll(headerIcon, headerText);
+            
+            // Close button
+            Button closeButton = new Button("Tutup");
+            closeButton.setStyle("-fx-background-color: linear-gradient(to bottom, #f44336, #d32f2f); " +
+                               "-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; " +
+                               "-fx-background-radius: 20; -fx-border-radius: 20; " +
+                               "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);");
+            closeButton.setPrefHeight(35);
+            closeButton.setPrefWidth(100);
             closeButton.setOnAction(event -> dialog.close());
             
-            vbox.setPadding(new javafx.geometry.Insets(10));
-            Scene scene = new Scene(vbox, 500, 400);
+            HBox buttonBox = new HBox();
+            buttonBox.setAlignment(javafx.geometry.Pos.CENTER);
+            buttonBox.getChildren().add(closeButton);
+            
+            vbox.getChildren().addAll(header, tableView, buttonBox);
+            VBox.setVgrow(tableView, javafx.scene.layout.Priority.ALWAYS);
+            
+            Scene scene = new Scene(vbox, 700, 500);
             dialog.setScene(scene);
+            
+            // Make dialog resizable and center it
+            dialog.setResizable(true);
+            dialog.centerOnScreen();
             dialog.show();
             
         } catch (SQLException e) {

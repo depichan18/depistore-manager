@@ -80,6 +80,19 @@ public class BarangController {
         colStok.setCellValueFactory(new PropertyValueFactory<>("stok"));
         colTanggal.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
 
+        // Make table responsive with dynamic column sizing
+        tableBarang.widthProperty().addListener((obs, oldWidth, newWidth) -> {
+            double tableWidth = newWidth.doubleValue() - 20; // Account for padding and scrollbar
+            
+            // Distribute column widths proportionally
+            colId.setPrefWidth(tableWidth * 0.08);        // 8% - ID column
+            colNama.setPrefWidth(tableWidth * 0.35);      // 35% - Nama Barang
+            colKategori.setPrefWidth(tableWidth * 0.18);  // 18% - Kategori
+            colHarga.setPrefWidth(tableWidth * 0.15);     // 15% - Harga
+            colStok.setPrefWidth(tableWidth * 0.09);      // 9% - Stok
+            colTanggal.setPrefWidth(tableWidth * 0.15);   // 15% - Tanggal
+        });
+
         cbSortBy.setItems(FXCollections.observableArrayList("Nama", "Harga", "Stok"));
         cbSortOrder.setItems(FXCollections.observableArrayList("ASC", "DESC"));
 
