@@ -61,7 +61,7 @@
                                  -fx-border-radius: 8; -fx-border-color: #e0e0e0; -fx-border-width: 1;
                                  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 6, 0, 0, 3);">
                         <padding>
-                            <Insets top="15" right="15" bottom="15" left="15"/>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
                         </padding>
                         
                         <HBox alignment="CENTER_LEFT" spacing="10">
@@ -70,7 +70,7 @@
                                    style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #2c3e50;"/>
                         </HBox>
                         
-                        <TableView fx:id="tableBarang" VBox.vgrow="ALWAYS"
+                        <TableView fx:id="tableBarang" VBox.vgrow="ALWAYS" prefHeight="500"
                                   style="-fx-background-color: transparent; 
                                          -fx-table-cell-border-color: transparent;
                                          -fx-selection-bar: #c8e6c9; 
@@ -93,50 +93,38 @@
                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                             </columnResizePolicy>
                         </TableView>
-                    </VBox>
-                    
-                    <!-- Action Buttons with Enhanced Styling -->
-                    <VBox spacing="15" style="-fx-background-color: white; -fx-background-radius: 8; 
-                                               -fx-border-radius: 8; -fx-border-color: #e0e0e0; -fx-border-width: 1;
-                                               -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 2);">
-                        <padding>
-                            <Insets top="15" right="15" bottom="15" left="15"/>
-                        </padding>
                         
-                        <Label text="⚡Aksi Cepat" 
-                               style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #2c3e50;"/>
-                        
-                        <!-- Action Buttons with Compact Layout -->
-                        <HBox spacing="10" alignment="CENTER">
+                        <!-- Action Buttons moved inside table box -->
+                        <HBox spacing="10" alignment="CENTER" style="-fx-padding: 10 0 0 0;">
                             <Button text="🏠Dashboard" onAction="#onDashboard"
                                    style="-fx-background-color: #1976D2; 
-                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
-                                          -fx-background-radius: 15; -fx-border-radius: 15;"
-                                   minHeight="40" minWidth="130"/>
+                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
+                                          -fx-background-radius: 12; -fx-border-radius: 12;"
+                                   minHeight="35" minWidth="110"/>
                                    
                             <Button text="💰Jual Barang" onAction="#onJualBarang"
                                    style="-fx-background-color: #388E3C; 
-                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
-                                          -fx-background-radius: 15; -fx-border-radius: 15;"
-                                   minHeight="40" minWidth="130"/>
+                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
+                                          -fx-background-radius: 12; -fx-border-radius: 12;"
+                                   minHeight="35" minWidth="110"/>
                                    
                             <Button text="📈Tambah Stok" onAction="#onTambahStok"
                                    style="-fx-background-color: #4CAF50; 
-                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
-                                          -fx-background-radius: 15; -fx-border-radius: 15;"
-                                   minHeight="40" minWidth="130"/>
+                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
+                                          -fx-background-radius: 12; -fx-border-radius: 12;"
+                                   minHeight="35" minWidth="110"/>
                                    
                             <Button text="➕Tambah Barang" onAction="#onTambahBarang"
                                    style="-fx-background-color: #2196F3; 
-                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
-                                          -fx-background-radius: 15; -fx-border-radius: 15;"
-                                   minHeight="40" minWidth="130"/>
+                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
+                                          -fx-background-radius: 12; -fx-border-radius: 12;"
+                                   minHeight="35" minWidth="110"/>
                                    
                             <Button text="📊Cetak Laporan" onAction="#onLaporan"
                                    style="-fx-background-color: #0D47A1; 
-                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
-                                          -fx-background-radius: 15; -fx-border-radius: 15;"
-                                   minHeight="40" minWidth="130"/>
+                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
+                                          -fx-background-radius: 12; -fx-border-radius: 12;"
+                                   minHeight="35" minWidth="110"/>
                         </HBox>
                     </VBox>
                 </VBox>
