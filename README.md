@@ -10,6 +10,18 @@ DepiStore Manager adalah aplikasi desktop berbasis JavaFX yang dirancang khusus 
 - Menghasilkan laporan komprehensif untuk analisis bisnis
 - Memberikan interface yang user-friendly untuk pemilik toko
 
+## 📸 Screenshot Aplikasi
+
+### Dashboard - Tampilan Utama
+![Dashboard DepiStore Manager](src/main/resources/img/img1.png)
+
+Dashboard menampilkan metrik bisnis penting seperti penjualan harian, stok menipis, grafik tren penjualan, dan daftar produk terlaris. Interface yang clean dan informatif memudahkan monitoring bisnis secara real-time.
+
+### Manajemen Barang - Interface Kelola Produk
+![Manajemen Barang](src/main/resources/img/img2.png)
+
+Interface manajemen barang yang komprehensif dengan fitur pencarian, sorting, dan operasi CRUD lengkap. Tabel yang responsif dengan context menu untuk akses cepat ke berbagai fungsi seperti edit, hapus, dan tambah stok.
+
 ## 🛠️ Teknologi yang Digunakan
 - **JavaFX 21.0.1** - Framework UI Desktop
 - **MySQL 8.0.33** - Database Management System
@@ -408,7 +420,35 @@ LOGGER.info("Database connection established");
 
 ---
 
-## 📞 Support
+## �️ Galeri Screenshot
+
+<table>
+<tr>
+<td width="50%">
+
+### Dashboard Analytics
+![Dashboard](src/main/resources/img/img1.png)
+*Dashboard dengan metrik real-time, grafik tren penjualan, dan monitoring stok*
+
+</td>
+<td width="50%">
+
+### Manajemen Barang
+![Manajemen Barang](src/main/resources/img/img2.png)
+*Interface manajemen barang dengan fitur pencarian, sorting, dan context menu*
+
+</td>
+</tr>
+</table>
+
+### Fitur Visual Highlights:
+- **🎨 Modern UI**: Interface yang clean dan professional
+- **📊 Data Visualization**: Charts dan grafik untuk analisis bisnis
+- **🎯 User-Friendly**: Navigasi intuitif dengan icon dan color coding
+- **📱 Responsive Design**: Layout yang optimal untuk berbagai ukuran layar
+- **🔍 Interactive Elements**: Hover effects dan context menus untuk UX yang baik
+
+## �📞 Support
 
 Untuk pertanyaan, bug report, atau feature request:
 1. Buat issue di repository
