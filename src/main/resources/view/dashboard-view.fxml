@@ -35,10 +35,9 @@
                         
                         <!-- Metric Card 1 -->
                         <VBox styleClass="metric-card" minHeight="120" maxHeight="150"
-                              style="-fx-background-color: linear-gradient(to bottom, #e3f2fd, #bbdefb); 
+                              style="-fx-background-color: #e3f2fd; 
                                      -fx-background-radius: 8; -fx-border-radius: 8; 
-                                     -fx-border-color: #2196f3; -fx-border-width: 2;
-                                     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 2);"
+                                     -fx-border-color: #2196f3; -fx-border-width: 2;"
                               GridPane.columnIndex="0" GridPane.rowIndex="0">
                             <padding>
                                 <Insets top="15" right="15" bottom="15" left="15"/>
@@ -54,10 +53,9 @@
                         
                         <!-- Metric Card 2 -->
                         <VBox styleClass="metric-card" minHeight="120" maxHeight="150"
-                              style="-fx-background-color: linear-gradient(to bottom, #ffebee, #ffcdd2); 
+                              style="-fx-background-color: #ffebee; 
                                      -fx-background-radius: 8; -fx-border-radius: 8; 
-                                     -fx-border-color: #f44336; -fx-border-width: 2;
-                                     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 2);"
+                                     -fx-border-color: #f44336; -fx-border-width: 2;"
                               GridPane.columnIndex="1" GridPane.rowIndex="0">
                             <padding>
                                 <Insets top="15" right="15" bottom="15" left="15"/>
@@ -74,10 +72,9 @@
                         
                         <!-- Metric Card 3 -->
                         <VBox styleClass="metric-card" minHeight="120" maxHeight="150"
-                              style="-fx-background-color: linear-gradient(to bottom, #e8f5e8, #c8e6c9); 
+                              style="-fx-background-color: #e8f5e8; 
                                      -fx-background-radius: 8; -fx-border-radius: 8; 
-                                     -fx-border-color: #4caf50; -fx-border-width: 2;
-                                     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 2);"
+                                     -fx-border-color: #4caf50; -fx-border-width: 2;"
                               GridPane.columnIndex="2" GridPane.rowIndex="0">
                             <padding>
                                 <Insets top="15" right="15" bottom="15" left="15"/>
@@ -93,10 +90,9 @@
                         
                         <!-- Metric Card 4 -->
                         <VBox styleClass="metric-card" minHeight="120" maxHeight="150"
-                              style="-fx-background-color: linear-gradient(to bottom, #fffde7, #fff9c4); 
+                              style="-fx-background-color: #fffde7; 
                                      -fx-background-radius: 8; -fx-border-radius: 8; 
-                                     -fx-border-color: #ffeb3b; -fx-border-width: 2;
-                                     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 2);"
+                                     -fx-border-color: #ffeb3b; -fx-border-width: 2;"
                               GridPane.columnIndex="3" GridPane.rowIndex="0">
                             <padding>
                                 <Insets top="15" right="15" bottom="15" left="15"/>
@@ -182,16 +178,14 @@
                     <HBox spacing="15" alignment="CENTER" minHeight="60">
                         <Button text="🛍️ Kelola Barang" onAction="#goToProductManagement" 
                                minWidth="150" prefHeight="40"
-                               style="-fx-background-color: linear-gradient(to bottom, #4CAF50, #45a049); 
+                               style="-fx-background-color: #4CAF50; 
                                       -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
-                                      -fx-background-radius: 20; -fx-border-radius: 20;
-                                      -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);"/>
+                                      -fx-background-radius: 20; -fx-border-radius: 20;"/>
                         <Button text="🔄 Refresh Data" onAction="#refreshDashboard" 
                                minWidth="150" prefHeight="40"
-                               style="-fx-background-color: linear-gradient(to bottom, #2196F3, #1976D2); 
+                               style="-fx-background-color: #2196F3; 
                                       -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
-                                      -fx-background-radius: 20; -fx-border-radius: 20;
-                                      -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);"/>
+                                      -fx-background-radius: 20; -fx-border-radius: 20;"/>
                     </HBox>
                 </VBox>
             </content>

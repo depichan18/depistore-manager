@@ -52,8 +52,7 @@
                             <Button text="🔄 Refresh" onAction="#onRefresh" 
                                    style="-fx-background-color: #2196F3; 
                                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
-                                          -fx-background-radius: 20; -fx-border-radius: 20;
-                                          -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);"
+                                          -fx-background-radius: 20; -fx-border-radius: 20;"
                                    minHeight="35" minWidth="80"/>
                         </HBox>
                     </VBox>
@@ -112,36 +111,31 @@
                             <Button text="🏠 Dashboard" onAction="#onDashboard"
                                    style="-fx-background-color: #9C27B0; 
                                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
-                                          -fx-background-radius: 15; -fx-border-radius: 15;
-                                          -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);"
+                                          -fx-background-radius: 15; -fx-border-radius: 15;"
                                    minHeight="40" minWidth="130"/>
                                    
                             <Button text="💰 Jual Barang" onAction="#onJualBarang"
                                    style="-fx-background-color: #FF9800; 
                                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
-                                          -fx-background-radius: 15; -fx-border-radius: 15;
-                                          -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);"
+                                          -fx-background-radius: 15; -fx-border-radius: 15;"
                                    minHeight="40" minWidth="130"/>
                                    
                             <Button text="📈 Tambah Stok" onAction="#onTambahStok"
                                    style="-fx-background-color: #4CAF50; 
                                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
-                                          -fx-background-radius: 15; -fx-border-radius: 15;
-                                          -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);"
+                                          -fx-background-radius: 15; -fx-border-radius: 15;"
                                    minHeight="40" minWidth="130"/>
                                    
                             <Button text="➕ Tambah Barang" onAction="#onTambahBarang"
                                    style="-fx-background-color: #2196F3; 
                                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
-                                          -fx-background-radius: 15; -fx-border-radius: 15;
-                                          -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);"
+                                          -fx-background-radius: 15; -fx-border-radius: 15;"
                                    minHeight="40" minWidth="130"/>
                                    
                             <Button text="📊 Cetak Laporan" onAction="#onLaporan"
                                    style="-fx-background-color: #E91E63; 
                                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
-                                          -fx-background-radius: 15; -fx-border-radius: 15;
-                                          -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);"
+                                          -fx-background-radius: 15; -fx-border-radius: 15;"
                                    minHeight="40" minWidth="130"/>
                         </HBox>
                     </VBox>
