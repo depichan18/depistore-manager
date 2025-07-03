@@ -34,39 +34,28 @@
                         <Label text="🔍 Pencarian dan Filter" 
                                style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #2c3e50;"/>
                         
-                        <!-- Responsive Controls Grid -->
-                        <GridPane hgap="15" vgap="10" alignment="CENTER_LEFT">
-                            <columnConstraints>
-                                <ColumnConstraints percentWidth="40" minWidth="200"/>
-                                <ColumnConstraints percentWidth="20" minWidth="150"/>
-                                <ColumnConstraints percentWidth="20" minWidth="100"/>
-                                <ColumnConstraints percentWidth="20" minWidth="100"/>
-                            </columnConstraints>
-                            
+                        <!-- Responsive Controls Layout -->
+                        <HBox spacing="8" alignment="CENTER_LEFT">
                             <TextField fx:id="tfSearch" promptText="🔍 Cari nama barang..." 
-                                      GridPane.columnIndex="0" GridPane.rowIndex="0"
                                       style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #ddd; 
                                              -fx-border-width: 1; -fx-padding: 8 15 8 15; -fx-font-size: 14px;"
-                                      minHeight="35"/>
+                                      minHeight="35" HBox.hgrow="ALWAYS"/>
                                       
                             <ComboBox fx:id="cbSortBy" promptText="Urutkan berdasarkan" 
-                                     GridPane.columnIndex="1" GridPane.rowIndex="0"
                                      style="-fx-background-radius: 20; -fx-border-radius: 20;"
-                                     minHeight="35"/>
+                                     minHeight="35" minWidth="160"/>
                                      
                             <ComboBox fx:id="cbSortOrder" promptText="Urutan" 
-                                     GridPane.columnIndex="2" GridPane.rowIndex="0"
                                      style="-fx-background-radius: 20; -fx-border-radius: 20;"
-                                     minHeight="35"/>
+                                     minHeight="35" minWidth="120"/>
                                      
                             <Button text="🔄 Refresh" onAction="#onRefresh" 
-                                   GridPane.columnIndex="3" GridPane.rowIndex="0"
-                                   style="-fx-background-color: linear-gradient(to bottom, #2196F3, #1976D2); 
+                                   style="-fx-background-color: #2196F3; 
                                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
                                           -fx-background-radius: 20; -fx-border-radius: 20;
                                           -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);"
                                    minHeight="35" minWidth="80"/>
-                        </GridPane>
+                        </HBox>
                     </VBox>
                     
                     <!-- Data Table with Enhanced Styling -->
@@ -118,57 +107,43 @@
                         <Label text="⚡ Aksi Cepat" 
                                style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #2c3e50;"/>
                         
-                        <!-- Responsive Button Grid -->
-                        <GridPane hgap="15" vgap="10" alignment="CENTER">
-                            <columnConstraints>
-                                <ColumnConstraints percentWidth="16.67" minWidth="140"/>
-                                <ColumnConstraints percentWidth="16.67" minWidth="140"/>
-                                <ColumnConstraints percentWidth="16.67" minWidth="140"/>
-                                <ColumnConstraints percentWidth="16.67" minWidth="140"/>
-                                <ColumnConstraints percentWidth="16.67" minWidth="140"/>
-                                <ColumnConstraints percentWidth="16.67" minWidth="140"/>
-                            </columnConstraints>
-                            
+                        <!-- Action Buttons with Compact Layout -->
+                        <HBox spacing="10" alignment="CENTER">
                             <Button text="🏠 Dashboard" onAction="#onDashboard"
-                                   GridPane.columnIndex="0" GridPane.rowIndex="0"
-                                   style="-fx-background-color: linear-gradient(to bottom, #9C27B0, #7B1FA2); 
-                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
+                                   style="-fx-background-color: #9C27B0; 
+                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
                                           -fx-background-radius: 15; -fx-border-radius: 15;
                                           -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);"
-                                   minHeight="40" minWidth="140"/>
+                                   minHeight="40" minWidth="130"/>
                                    
                             <Button text="💰 Jual Barang" onAction="#onJualBarang"
-                                   GridPane.columnIndex="1" GridPane.rowIndex="0"
-                                   style="-fx-background-color: linear-gradient(to bottom, #FF9800, #F57C00); 
-                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
+                                   style="-fx-background-color: #FF9800; 
+                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
                                           -fx-background-radius: 15; -fx-border-radius: 15;
                                           -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);"
-                                   minHeight="40" minWidth="140"/>
+                                   minHeight="40" minWidth="130"/>
                                    
                             <Button text="📈 Tambah Stok" onAction="#onTambahStok"
-                                   GridPane.columnIndex="2" GridPane.rowIndex="0"
-                                   style="-fx-background-color: linear-gradient(to bottom, #4CAF50, #388E3C); 
-                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
+                                   style="-fx-background-color: #4CAF50; 
+                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
                                           -fx-background-radius: 15; -fx-border-radius: 15;
                                           -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);"
-                                   minHeight="40" minWidth="140"/>
+                                   minHeight="40" minWidth="130"/>
                                    
                             <Button text="➕ Tambah Barang" onAction="#onTambahBarang"
-                                   GridPane.columnIndex="3" GridPane.rowIndex="0"
-                                   style="-fx-background-color: linear-gradient(to bottom, #2196F3, #1976D2); 
-                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
+                                   style="-fx-background-color: #2196F3; 
+                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
                                           -fx-background-radius: 15; -fx-border-radius: 15;
                                           -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);"
-                                   minHeight="40" minWidth="140"/>
+                                   minHeight="40" minWidth="130"/>
                                    
                             <Button text="📊 Cetak Laporan" onAction="#onLaporan"
-                                   GridPane.columnIndex="4" GridPane.rowIndex="0"
-                                   style="-fx-background-color: linear-gradient(to bottom, #E91E63, #C2185B); 
-                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
+                                   style="-fx-background-color: #E91E63; 
+                                          -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;
                                           -fx-background-radius: 15; -fx-border-radius: 15;
                                           -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);"
-                                   minHeight="40" minWidth="140"/>
-                        </GridPane>
+                                   minHeight="40" minWidth="130"/>
+                        </HBox>
                     </VBox>
                 </VBox>
             </content>
