@@ -41,6 +41,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
@@ -51,6 +52,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.geometry.Pos;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -109,7 +112,8 @@ public class BarangController {
                               "-fx-font-size: 12px; " +
                               "-fx-background-radius: 20; " +
                               "-fx-border-radius: 20; " +
-                              "-fx-border-color: transparent;";
+                              "-fx-border-color: transparent; " +
+                              "-fx-alignment: CENTER;";
         
         cbSortBy.setStyle(comboBoxStyle);
         cbSortOrder.setStyle(comboBoxStyle);
@@ -120,13 +124,23 @@ public class BarangController {
             cbSortBy.applyCss();
             cbSortOrder.applyCss();
             
-            // Style untuk button dan label internal ComboBox
-            styleComboBoxComponents(cbSortBy);
-            styleComboBoxComponents(cbSortOrder);
-            
-            // Additional styling untuk dropdown
-            cbSortBy.lookup(".list-view").setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
-            cbSortOrder.lookup(".list-view").setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
+            // Apply styling after the scene is fully loaded
+            Platform.runLater(() -> {
+                styleComboBoxComponents(cbSortBy);
+                styleComboBoxComponents(cbSortOrder);
+                
+                // Additional styling untuk dropdown
+                try {
+                    if (cbSortBy.lookup(".list-view") != null) {
+                        cbSortBy.lookup(".list-view").setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
+                    }
+                    if (cbSortOrder.lookup(".list-view") != null) {
+                        cbSortOrder.lookup(".list-view").setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
+                    }
+                } catch (Exception e) {
+                    LOGGER.log(Level.WARNING, "Error styling ComboBox list view", e);
+                }
+            });
         });
 
         tfSearch.textProperty().addListener((obs, oldVal, newVal) -> loadData());
@@ -1294,41 +1308,55 @@ public class BarangController {
         }
     }
 
-    // Method untuk membuat row factory dengan efek zebra hijau
+    // Method untuk membuat row factory dengan efek zebra dan selection biru
     public Callback<TableView<Barang>, TableRow<Barang>> createTableRowFactory() {
         return tableView -> {
             TableRow<Barang> row = new TableRow<>();
 
+            // Listener untuk mengatur styling berdasarkan state
             row.itemProperty().addListener((obs, oldItem, newItem) -> {
-                if (newItem != null) {
-                    int index = row.getIndex();
-                    if (index % 2 == 0) {
-                        // Baris genap: putih
-                        row.setStyle("-fx-background-color: #ffffff; -fx-border-color: transparent;");
-                    } else {
-                        // Baris ganjil: biru muda
-                        row.setStyle("-fx-background-color: #e3f2fd; -fx-border-color: transparent;");
-                    }
-                } else {
-                    row.setStyle("");
-                }
+                updateRowStyle(row);
+            });
+            
+            // Listener untuk selection state
+            row.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+                updateRowStyle(row);
             });
             
             // Hover effect
             row.hoverProperty().addListener((obs, wasHovered, isHovered) -> {
-                if (isHovered && row.getItem() != null) {
-                    row.setStyle("-fx-background-color: #bbdefb; -fx-border-color: transparent;"); // biru hover
-                } else if (row.getItem() != null) {
-                    int index = row.getIndex();
-                    if (index % 2 == 0) {
-                        row.setStyle("-fx-background-color: #ffffff; -fx-border-color: transparent;");
-                    } else {
-                        row.setStyle("-fx-background-color: #e3f2fd; -fx-border-color: transparent;");
-                    }
-                }
+                updateRowStyle(row);
             });
+            
             return row;
         };
+    }
+    
+    // Method helper untuk mengatur style row berdasarkan state
+    private void updateRowStyle(TableRow<Barang> row) {
+        if (row.getItem() == null) {
+            row.setStyle("");
+            return;
+        }
+        
+        // Priority: Selected > Hover > Zebra striping
+        if (row.isSelected()) {
+            // Warna biru gelap untuk selection
+            row.setStyle("-fx-background-color: #1565C0; -fx-text-fill: white; -fx-border-color: transparent;");
+        } else if (row.isHover()) {
+            // Warna biru hover
+            row.setStyle("-fx-background-color: #1976D2; -fx-text-fill: white; -fx-border-color: transparent;");
+        } else {
+            // Zebra striping normal
+            int index = row.getIndex();
+            if (index % 2 == 0) {
+                // Baris genap: putih
+                row.setStyle("-fx-background-color: #ffffff; -fx-text-fill: black; -fx-border-color: transparent;");
+            } else {
+                // Baris ganjil: biru muda
+                row.setStyle("-fx-background-color: #e3f2fd; -fx-text-fill: black; -fx-border-color: transparent;");
+            }
+        }
     }
 
     private void setupCellFactories() {
@@ -1501,12 +1529,65 @@ public class BarangController {
             comboBox.lookupAll(".combo-box-base").forEach(node -> {
                 node.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; " +
                              "-fx-font-weight: bold; -fx-font-size: 12px; " +
-                             "-fx-background-radius: 20; -fx-border-radius: 20;");
+                             "-fx-background-radius: 20; -fx-border-radius: 20; " +
+                             "-fx-alignment: CENTER;");
             });
             
             // Style untuk label yang menampilkan value yang dipilih
             comboBox.lookupAll(".label").forEach(node -> {
-                node.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;");
+                node.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; " +
+                             "-fx-alignment: CENTER; -fx-text-alignment: CENTER;");
+            });
+            
+            // Style untuk text field internal (untuk prompt text)
+            comboBox.lookupAll(".text-field").forEach(node -> {
+                node.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; " +
+                             "-fx-alignment: CENTER; -fx-text-alignment: CENTER;");
+            });
+            
+            // Style untuk text input control
+            comboBox.lookupAll(".text-input").forEach(node -> {
+                node.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; " +
+                             "-fx-alignment: CENTER; -fx-text-alignment: CENTER;");
+            });
+            
+            // Custom cell factory untuk center alignment
+            comboBox.setCellFactory(listView -> {
+                ListCell<String> cell = new ListCell<String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty || item == null) {
+                            setText(null);
+                        } else {
+                            setText(item);
+                        }
+                        setAlignment(Pos.CENTER);
+                        setTextAlignment(TextAlignment.CENTER);
+                        setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; " +
+                               "-fx-alignment: CENTER; -fx-text-alignment: CENTER; " +
+                               "-fx-background-color: #2196F3;");
+                    }
+                };
+                return cell;
+            });
+            
+            // Custom button cell untuk center alignment
+            comboBox.setButtonCell(new ListCell<String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(comboBox.getPromptText());
+                    } else {
+                        setText(item);
+                    }
+                    setAlignment(Pos.CENTER);
+                    setTextAlignment(TextAlignment.CENTER);
+                    setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; " +
+                           "-fx-alignment: CENTER; -fx-text-alignment: CENTER; " +
+                           "-fx-background-color: transparent;");
+                }
             });
             
             // Style untuk arrow button

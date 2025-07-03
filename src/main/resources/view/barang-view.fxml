@@ -41,13 +41,13 @@
                                              -fx-border-width: 1; -fx-padding: 8 15 8 15; -fx-font-size: 14px;"
                                       minHeight="35" prefWidth="300" HBox.hgrow="ALWAYS"/>
                                       
-                            <ComboBox fx:id="cbSortBy" promptText="Urutkan berdasarkan" 
+                            <ComboBox fx:id="cbSortBy" promptText="Nama" 
                                      minHeight="35" prefWidth="90" maxWidth="90"/>
                                      
-                            <ComboBox fx:id="cbSortOrder" promptText="Urutan" 
+                            <ComboBox fx:id="cbSortOrder" promptText="ASC" 
                                      minHeight="35" prefWidth="70" maxWidth="70"/>
                                      
-                            <Button text="🔄Refresh" onAction="#onRefresh" 
+                            <Button text="🔄 Refresh" onAction="#onRefresh" 
                                    style="-fx-background-color: #4CAF50; 
                                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
                                           -fx-background-radius: 20; -fx-border-radius: 20;"
@@ -65,16 +65,14 @@
                         </padding>
                         
                         <HBox alignment="CENTER_LEFT" spacing="10">
-                            <Label text="📦" style="-fx-font-size: 20px;"/>
+                            <Label text="📦 " style="-fx-font-size: 20px;"/>
                             <Label text="Daftar Barang" 
                                    style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #2c3e50;"/>
                         </HBox>
                         
                         <TableView fx:id="tableBarang" VBox.vgrow="ALWAYS" prefHeight="500"
                                   style="-fx-background-color: transparent; 
-                                         -fx-table-cell-border-color: transparent;
-                                         -fx-selection-bar: #c8e6c9; 
-                                         -fx-selection-bar-non-focused: #e8f5e8;">
+                                         -fx-table-cell-border-color: transparent;">
                             <columns>
                                 <TableColumn fx:id="colId" text="ID" minWidth="60" 
                                            style="-fx-alignment: CENTER;"/>
@@ -96,31 +94,31 @@
                         
                         <!-- Action Buttons moved inside table box -->
                         <HBox spacing="10" alignment="CENTER" style="-fx-padding: 10 0 0 0;">
-                            <Button text="🏠Dashboard" onAction="#onDashboard"
+                            <Button text="🏠 Dashboard" onAction="#onDashboard"
                                    style="-fx-background-color: #1976D2; 
                                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
                                           -fx-background-radius: 12; -fx-border-radius: 12;"
                                    minHeight="35" minWidth="110"/>
                                    
-                            <Button text="💰Jual Barang" onAction="#onJualBarang"
+                            <Button text="💰 Jual Barang" onAction="#onJualBarang"
                                    style="-fx-background-color: #388E3C; 
                                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
                                           -fx-background-radius: 12; -fx-border-radius: 12;"
                                    minHeight="35" minWidth="110"/>
                                    
-                            <Button text="📈Tambah Stok" onAction="#onTambahStok"
+                            <Button text="📈 Tambah Stok" onAction="#onTambahStok"
                                    style="-fx-background-color: #4CAF50; 
                                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
                                           -fx-background-radius: 12; -fx-border-radius: 12;"
                                    minHeight="35" minWidth="110"/>
                                    
-                            <Button text="➕Tambah Barang" onAction="#onTambahBarang"
+                            <Button text="➕ Tambah Barang" onAction="#onTambahBarang"
                                    style="-fx-background-color: #2196F3; 
                                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
                                           -fx-background-radius: 12; -fx-border-radius: 12;"
                                    minHeight="35" minWidth="110"/>
                                    
-                            <Button text="📊Cetak Laporan" onAction="#onLaporan"
+                            <Button text="📊 Cetak Laporan" onAction="#onLaporan"
                                    style="-fx-background-color: #0D47A1; 
                                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
                                           -fx-background-radius: 12; -fx-border-radius: 12;"
