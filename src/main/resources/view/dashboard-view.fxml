@@ -6,21 +6,21 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.depichan.controller.DashboardController"
-            minWidth="800" minHeight="600">
+            minWidth="900" minHeight="700" prefWidth="1200" prefHeight="800">
     <children>
         <ScrollPane fitToWidth="true" fitToHeight="true" 
                    AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" 
                    AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"
                    hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
             <content>
-                <VBox spacing="15" minWidth="800">
+                <VBox spacing="15" minWidth="900">
                     <padding>
                         <Insets top="15" right="15" bottom="15" left="15"/>
                     </padding>
                     
                     <!-- Header -->
                     <HBox alignment="CENTER" minHeight="50">
-                        <Label text="Dashboard Toko Kelontong" 
+                        <Label text="Dashboard DepiStore" 
                                style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
                     </HBox>
                     

@@ -5,7 +5,7 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.depichan.controller.BarangController"
-            minWidth="900" minHeight="600">
+            minWidth="900" minHeight="700" prefWidth="1200" prefHeight="800">
     <children>
         <ScrollPane fitToWidth="true" fitToHeight="true" 
                    AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" 
@@ -19,7 +19,7 @@
                     
                     <!-- Header -->
                     <HBox alignment="CENTER" minHeight="50">
-                        <Label text="Data Barang Toko Kelontong" 
+                        <Label text="Data Barang DepiStore" 
                                style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
                     </HBox>
                     

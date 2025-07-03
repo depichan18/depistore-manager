@@ -447,8 +447,16 @@ public class DashboardController {
             Scene scene = new Scene(root);
             
             Stage stage = (Stage) labelSalesToday.getScene().getWindow();
-            stage.setTitle("Data Barang Toko Kelontong");
+            stage.setTitle("Data Barang DepiStore");
             stage.setScene(scene);
+            
+            // Set ukuran window yang konsisten dan tidak mepet
+            stage.setWidth(1200);
+            stage.setHeight(800);
+            stage.setMinWidth(900);
+            stage.setMinHeight(700);
+            stage.setResizable(true);
+            stage.centerOnScreen();
             
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Failed to open product management page", e);

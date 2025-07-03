@@ -1166,9 +1166,16 @@ public class BarangController {
             Scene scene = new Scene(root);
             
             Stage stage = (Stage) tableBarang.getScene().getWindow();
-            stage.setTitle("Dashboard Toko Kelontong");
+            stage.setTitle("Dashboard DepiStore");
             stage.setScene(scene);
+            
+            // Set ukuran window yang konsisten dan tidak mepet
+            stage.setWidth(1200);
+            stage.setHeight(800);
+            stage.setMinWidth(900);
+            stage.setMinHeight(700);
             stage.setResizable(true);
+            stage.centerOnScreen();
             
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error opening dashboard", e);
